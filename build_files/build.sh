@@ -15,7 +15,7 @@ set -ouex pipefail
 IMAGE_VENDOR="jahinzee"
 IMAGE_NAME="metis"
 IMAGE_PRETTY_NAME="Metis"
-IMAGE_LIKE="fedora"
+IMAGE_LIKE="Kinoite"
 HOME_URL="https://github.com/jahinzee/metis"
 DOCUMENTATION_URL="https://github.com/jahinzee/metis/blob/main/README.md"
 SUPPORT_URL="https://github.com/jahinzee/metis/issues"
