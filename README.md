@@ -25,10 +25,13 @@ ISO building is very flaky at the moment, so we'll be using the good ol'
 > [!NOTE]
 > If you are rebasing from Kinoite, there's a chance there may be some Flatpaks
 > preinstall that overlap with the base images' apps. You should remove them
-> before continuing with:
+> before continuing:
+> 
 > ```
 > flatpak list --columns=application | xargs flatpak uninstall -y
 > ```
+> 
+> You can manually (re)add any Flatpak you want after you rebase.
 
 2. Open Konsole and run this command to rebase to the unsigned variant of this
    image (we'll re-rebase to the signed one later, but we have to go unsigned
@@ -59,5 +62,10 @@ ISO building is very flaky at the moment, so we'll be using the good ol'
   exist here):
 
   ```
-  sudo usermod --shell /bin/fish jahinzee
+  sudo usermod --shell /bin/fish <username>
   ```
+
+- For optimal IME support, open the *Virtual Keyboard* page in System Settings,
+  and select and apply *Fcitx 5 Wayland Launcher (Experimental)*.
+  
+  Afterwards, log out and log in again to activate the IME.
