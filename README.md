@@ -18,10 +18,17 @@ An atomic distro for an audience of one (me).
 ISO building is very flaky at the moment, so we'll be using the good ol'
 "rebase from another install" method.
 
-
 1. Install another Fedora Atomic or Universal Blue image, I recommend
    [Kinoite](https://fedoraproject.org/atomic-desktops/kinoite/).
 
+
+> [!NOTE]
+> If you are rebasing from Kinoite, there's a chance there may be some Flatpaks
+> preinstall that overlap with the base images' apps. You should remove them
+> before continuing with:
+> ```
+> flatpak list --columns=application | xargs flatpak uninstall -y
+> ```
 
 2. Open Konsole and run this command to rebase to the unsigned variant of this
    image (we'll re-rebase to the signed one later, but we have to go unsigned
@@ -46,5 +53,11 @@ ISO building is very flaky at the moment, so we'll be using the good ol'
 
 5. Reboot once again.
 
-### Rebasing back to your previous image
+### Post-Install Notes
 
+- You can switch your default shell to `fish` with `usermod` (`chsh` does not
+  exist here):
+
+  ```
+  sudo usermod --shell /bin/fish jahinzee
+  ```

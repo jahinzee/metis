@@ -65,28 +65,19 @@ dnf swap fedora-logos generic-logos -y
 ##    Packages
 ## ----------------------------------------------------------------------------
 
-## === IN: Multimedia
-
-dnf5 install -y \
-	haruna \
-	elisa
-
-## === RM: Games
-
-dnf5 remove -y \
-  kmahjongg \
-  kmines \
-
 ## === IN: KDE Utilities
-
-dnf5 remove -y \
-  kcalc # replacing with `kalk`
 
 dnf5 install -y \
   kclock \
-  kalk \
   kcolorchooser \
-  yakuake
+  yakuake \
+  kolourpaint \
+  haruna \
+  elisa \
+  gwenview \
+  kalk \
+  krdc \
+  okular \
 
 ## === IN: Coolutils
 
