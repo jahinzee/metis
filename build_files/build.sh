@@ -2,16 +2,6 @@
 
 set -ouex pipefail
 
-# ### Install packages
-
-# # Packages can be installed from any enabled yum repo on the image.
-# # RPMfusion repos are available by default in ublue main images
-# # List of rpmfusion packages can be found here:
-# # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
-
-# # this installs a package from fedora repos
-# dnf5 install -y tmux
-
 ## ----------------------------------------------------------------------------
 ##    Branding
 ## ----------------------------------------------------------------------------
@@ -75,8 +65,87 @@ dnf swap fedora-logos generic-logos -y
 ##    Packages
 ## ----------------------------------------------------------------------------
 
-## Multimedia
+## === IN: Multimedia
 
-sudo dnf install -y \
+dnf5 install -y \
 	haruna \
 	elisa
+
+## === RM: Games
+
+dnf5 remove -y \
+  kmahjongg \
+  kmines \
+
+## === IN: KDE Utilities
+
+dnf5 remove -y \
+  kcalc # replacing with `kalk`
+
+dnf5 install -y \
+  kclock \
+  kalk \
+  kcolorchooser \
+  yakuake
+
+## === IN: Coolutils
+
+# Like `coreutils`, but cooler!
+
+# fish (you'll have to `chsh` from `bash` yourself)
+dnf5 install -y \
+  fish
+
+# Basic tools
+dnf5 install -y \
+  helix \
+  bat \
+  btop \
+  zoxide
+
+# pipx - manage ""Python"" packages
+dnf5 install -y \
+  pipx
+
+# eza - better `ls` (COPR)
+# TODO: drop the copr repo and install from main repos
+#       when F42 has it back in stock.
+dnf5 -y copr enable \
+  dturner/eza 
+dnf5 install -y \
+  eza
+dnf5 -y copr disable \
+  dturner/eza
+
+# topgrade - system update utility (COPR)
+dnf5 -y copr enable \
+  lilay/topgrade
+dnf5 install -y \
+  topgrade
+dnf5 -y copr disable \
+  lilay/topgrade
+
+## == IN: Virtualisataion
+
+dnf5 install -y \
+  @virtualization
+
+## == IN: ..put Methods
+
+# jp - Japanese/日本語
+dnf5 install -y \
+  fcitx5-mozc
+
+# bn - Bengali/বাংলা (COPR)
+dnf5 -y copr enable \
+  badshah/openbangla-keyboard
+dnf5 install -y \
+  fcitx-openbangla
+dnf5 -y copr disable \
+  badshah/openbangla-keyboard 
+
+## == IN: Miscellaneous
+
+# Thunderbird - I find this to be more reliable than the Flatpak version :\
+dnf5 install -y \
+  thunderbird
