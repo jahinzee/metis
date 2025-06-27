@@ -99,7 +99,7 @@ dnf5 install -y \
   zoxide \
   ripgrep \
   fd \
-  topgrade
+  fastfetch
 
 # * pipx
 #   manage ""Python"" packages
