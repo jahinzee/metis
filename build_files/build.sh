@@ -85,24 +85,30 @@ dnf5 install -y \
 
 # Like `coreutils`, but cooler!
 
-# fish (you'll have to `chsh` from `bash` yourself)
+# * fish
+#   you'll have to change the login shell from `bash` yourself
 dnf5 install -y \
   fish
 
-# Basic tools
+# * Basic tools
 dnf5 install -y \
   helix \
+  neovim \
   bat \
   btop \
-  zoxide
+  zoxide \
+  ripgrep \
+  fd
 
-# pipx - manage ""Python"" packages
+# * pipx
+#   manage ""Python"" packages
 dnf5 install -y \
   pipx
 
-# eza - better `ls` (COPR)
-# TODO: drop the copr repo and install from main repos
-#       when F42 has it back in stock.
+# * eza
+#   better `ls` (COPR)
+#   TODO: drop the copr repo and install from main repos
+#         when F42 has it back in stock.
 dnf5 -y copr enable \
   dturner/eza 
 dnf5 install -y \
@@ -110,7 +116,8 @@ dnf5 install -y \
 dnf5 -y copr disable \
   dturner/eza
 
-# topgrade - system update utility (COPR)
+# * topgrade
+#   system update utility (COPR)
 dnf5 -y copr enable \
   lilay/topgrade
 dnf5 install -y \
@@ -125,11 +132,13 @@ dnf5 install -y \
 
 ## == IN: ..put Methods
 
-# jp - Japanese/日本語
+# * jp
+#   Japanese/日本語
 dnf5 install -y \
   fcitx5-mozc
 
-# bn - Bengali/বাংলা (COPR)
+# * bn
+#   Bengali/বাংলা (COPR)
 dnf5 -y copr enable \
   badshah/openbangla-keyboard
 dnf5 install -y \
@@ -139,6 +148,17 @@ dnf5 -y copr disable \
 
 ## == IN: Miscellaneous
 
-# Thunderbird - I find this to be more reliable than the Flatpak version :\
+# * Thunderbird
+#   I find this to be more reliable than the Flatpak version :\
 dnf5 install -y \
   thunderbird
+
+# * Homebrew support packages
+#   Since Homebrew is a user-level tool, integrating it on the system
+#   layer doesn't make a lot of sense, but installing its dependencies
+#   is fine.
+dnf5 install -y \
+  @development-tools \
+  procps-ng \
+  curl \
+  file

@@ -65,7 +65,13 @@ ISO building is very flaky at the moment, so we'll be using the good ol'
   sudo usermod --shell /bin/fish <username>
   ```
 
-- For optimal IME support, open the *Virtual Keyboard* page in System Settings,
+- For proper IME support, open the *Virtual Keyboard* page in System Settings,
   and select and apply *Fcitx 5 Wayland Launcher (Experimental)*.
   
   Afterwards, log out and log in again to activate the IME.
+
+- There are support packages for Homebrew, but Homebrew itself is not
+  installed.
+
+  Visit [the Homebrew website](https://brew.sh/) for up-to-date installation
+  instructions.
