@@ -51,7 +51,7 @@ ISO building is very flaky at the moment, so we'll be using the good ol'
    variant.
 
    ```sh
-   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/
+   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/jahinzee/metis
    ```
 
 5. Reboot once again.
