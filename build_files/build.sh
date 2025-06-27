@@ -98,7 +98,8 @@ dnf5 install -y \
   btop \
   zoxide \
   ripgrep \
-  fd
+  fd \
+  topgrade
 
 # * pipx
 #   manage ""Python"" packages
