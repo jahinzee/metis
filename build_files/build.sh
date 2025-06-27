@@ -81,6 +81,11 @@ dnf5 install -y \
   krdc \
   okular \
 
+## === RM: Discover
+
+dnf5 remove -y \
+  plasma-discover
+
 ## === IN: Coolutils
 
 # Like `coreutils`, but cooler!
@@ -163,3 +168,7 @@ dnf5 install -y \
   procps-ng \
   curl \
   file
+
+# * Syncthing
+dnf5 install -y \
+  syncthing
