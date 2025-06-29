@@ -81,12 +81,7 @@ dnf5 install -y \
   gwenview \
   kalk \
   krdc \
-  okular \
-
-## === RM: Discover
-
-dnf5 remove -y \
-  plasma-discover
+  okular
 
 ## === IN: Coolutils
 
@@ -106,8 +101,7 @@ dnf5 install -y \
   zoxide \
   ripgrep \
   fd \
-  fastfetch \
-  qalculate
+  fastfetch
 
 # * pipx
 #   manage ""Python"" packages
