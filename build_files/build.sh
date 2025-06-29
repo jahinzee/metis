@@ -69,19 +69,33 @@ dnf swap fedora-logos generic-logos -y
 ##    Packages
 ## ----------------------------------------------------------------------------
 
+install() {
+  echo "[install] $1"
+  dnf5 install "$1" -y
+}
+
+install-from-copr() {
+  echo "[install] (copr:$1) $2"
+  dnf5 copr enable "$1" -y
+  dnf5 install "$2" -y
+  dnf5 copr disable "$1" -y
+}
+
 ## === IN: KDE Utilities
 
-dnf5 install -y \
-  kclock \
-  kcolorchooser \
-  yakuake \
-  kolourpaint \
-  haruna \
-  elisa \
-  gwenview \
-  kalk \
-  krdc \
-  okular
+# install kclock
+# install kcolorchooser
+# install yakuake
+# install kclock
+# install kcolorchooser
+# install yakuake
+# install kolourpaint
+# install haruna
+# install elisa
+# install gwenview
+# install kalk
+# install krdc
+# install okular
 
 ## === IN: Coolutils
 
@@ -89,83 +103,60 @@ dnf5 install -y \
 
 # * fish
 #   you'll have to change the login shell from `bash` yourself
-dnf5 install -y \
-  fish
+install fish
 
 # * Basic tools
-dnf5 install -y \
-  helix \
-  neovim \
-  bat \
-  btop \
-  zoxide \
-  ripgrep \
-  fd \
-  fastfetch
+install helix
+install neovim
+install bat
+install btop
+install zoxide
+install ripgrep
+install fd
+install fastfetch
 
 # * pipx
 #   manage ""Python"" packages
-dnf5 install -y \
-  pipx
+install pipx
 
 # * eza
 #   better `ls` (COPR)
 #   TODO: drop the copr repo and install from main repos
 #         when F42 has it back in stock.
-dnf5 -y copr enable \
-  dturner/eza 
-dnf5 install -y \
-  eza
-dnf5 -y copr disable \
-  dturner/eza
+install-from-copr dturner/eza eza
 
 # * topgrade
 #   system update utility (COPR)
-dnf5 -y copr enable \
-  lilay/topgrade
-dnf5 install -y \
-  topgrade
-dnf5 -y copr disable \
-  lilay/topgrade
+install-from-copr lilay/topgrade topgrade
 
-## == IN: Virtualisataion
+## == IN: Virtualisation
 
-dnf5 install -y \
-  @virtualization
+install @virtualization
 
 ## == IN: ..put Methods
 
 # * jp
 #   Japanese/日本語
-dnf5 install -y \
-  fcitx5-mozc
+install fcitx5-mozc
 
 # * bn
 #   Bengali/বাংলা (COPR)
-dnf5 -y copr enable \
-  badshah/openbangla-keyboard
-dnf5 install -y \
-  fcitx-openbangla
-dnf5 -y copr disable \
-  badshah/openbangla-keyboard 
+install-from-copr badshah/openbangla-keyboard fcitx-openbangla
 
 ## == IN: Miscellaneous
 
 # * Thunderbird
 #   I find this to be more reliable than the Flatpak version :\
-dnf5 install -y \
-  thunderbird
+install thunderbird
 
 # * Homebrew support packages
 #   Since Homebrew is a user-level tool, integrating it on the system
 #   layer doesn't make a lot of sense, but installing its dependencies
 #   is fine.
-dnf5 install -y \
-  @development-tools \
-  procps-ng \
-  curl \
-  file
+install @development-tools
+install procps-ng
+install curl
+install file
 
 # * Syncthing
-dnf5 install -y \
-  syncthing
+install syncthing
