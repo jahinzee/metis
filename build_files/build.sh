@@ -70,8 +70,8 @@ dnf swap fedora-logos generic-logos -y
 ## ----------------------------------------------------------------------------
 
 install() {
-  echo "[install] $1"
-  dnf5 install "$1" -y
+  echo "[install] $@"
+  dnf5 install -y "$@"
 }
 
 install-from-copr() {
@@ -83,19 +83,18 @@ install-from-copr() {
 
 ## === IN: KDE Utilities
 
-# install kclock
-# install kcolorchooser
-# install yakuake
-# install kclock
-# install kcolorchooser
-# install yakuake
-# install kolourpaint
-# install haruna
-# install elisa
-# install gwenview
-# install kalk
-# install krdc
-# install okular
+install kclock \
+        yakuake \
+        kclock \
+        kcolorchooser \
+        yakuake \
+        kolourpaint \
+        haruna \
+        elisa \
+        gwenview \
+        kalk \
+        krdc \
+        okular
 
 ## === IN: Coolutils
 
@@ -106,14 +105,14 @@ install-from-copr() {
 install fish
 
 # * Basic tools
-install helix
-install neovim
-install bat
-install btop
-install zoxide
-install ripgrep
-install fd
-install fastfetch
+install helix \
+        neovim \
+        bat \
+        btop \
+        zoxide \
+        ripgrep \
+        fd \
+        fastfetch \
 
 # * pipx
 #   manage ""Python"" packages
@@ -123,11 +122,13 @@ install pipx
 #   better `ls` (COPR)
 #   TODO: drop the copr repo and install from main repos
 #         when F42 has it back in stock.
-install-from-copr dturner/eza eza
+install-from-copr dturner/eza \
+                  eza
 
 # * topgrade
 #   system update utility (COPR)
-install-from-copr lilay/topgrade topgrade
+install-from-copr lilay/topgrade \
+                  topgrade
 
 ## == IN: Virtualisation
 
@@ -141,7 +142,8 @@ install fcitx5-mozc
 
 # * bn
 #   Bengali/বাংলা (COPR)
-install-from-copr badshah/openbangla-keyboard fcitx-openbangla
+install-from-copr badshah/openbangla-keyboard \
+                  fcitx-openbangla
 
 ## == IN: Miscellaneous
 
@@ -153,10 +155,10 @@ install thunderbird
 #   Since Homebrew is a user-level tool, integrating it on the system
 #   layer doesn't make a lot of sense, but installing its dependencies
 #   is fine.
-install @development-tools
-install procps-ng
-install curl
-install file
+install @development-tools \
+        procps-ng \
+        curl \
+        file \
 
 # * Syncthing
 install syncthing
