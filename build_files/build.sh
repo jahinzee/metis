@@ -94,7 +94,8 @@ install kclock \
         gwenview \
         kalk \
         krdc \
-        okular
+        okular \
+        plasma-browser-integration
 
 ## === IN: Coolutils
 
@@ -113,6 +114,7 @@ install helix \
         ripgrep \
         fd \
         fastfetch \
+        qalculate \
 
 # * pipx
 #   manage ""Python"" packages
@@ -122,6 +124,7 @@ install pipx
 #   better `ls` (COPR)
 #   TODO: drop the copr repo and install from main repos
 #         when F42 has it back in stock.
+#         <https://github.com/eza-community/eza/blob/main/INSTALL.md#fedora>
 install-from-copr dturner/eza \
                   eza
 
@@ -158,7 +161,10 @@ install thunderbird
 install @development-tools \
         procps-ng \
         curl \
-        file \
+        file
 
 # * Syncthing
 install syncthing
+
+# * Printer drivers
+install printer-driver-brlaser
