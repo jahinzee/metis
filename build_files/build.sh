@@ -168,3 +168,11 @@ install syncthing
 
 # * Printer drivers
 install printer-driver-brlaser
+
+# * Ghostty (COPR)
+install-from-copr scottames/ghostty \
+                  ghostty
+
+# * KDE-Rounded-Corners (COPR)
+install-from-copr matinlotfali/KDE-Rounded-Corners \
+                  kwin-effect-roundcorners
