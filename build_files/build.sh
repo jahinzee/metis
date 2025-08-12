@@ -2,9 +2,9 @@
 
 set -ouex pipefail
 
-## ----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------------
 ##    Branding
-## ----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------------
 
 # This section adapted from:
 #    https://github.com/winblues/blue95/blob/main/files/scripts/00-image-info.sh
@@ -42,32 +42,54 @@ cat >$IMAGE_INFO <<EOF
 EOF
 
 # OS Release File
-sed -i "s/^VARIANT_ID=.*/VARIANT_ID=$IMAGE_NAME/" /usr/lib/os-release
-sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"${IMAGE_PRETTY_NAME} (FROM Fedora ${BASE_IMAGE_NAME^})\"/" /usr/lib/os-release
-sed -i "s/^NAME=.*/NAME=\"$IMAGE_PRETTY_NAME\"/" /usr/lib/os-release
-sed -i "s/^ID=.*/ID=\"$IMAGE_NAME\"/" /usr/lib/os-release
-sed -i "s|^HOME_URL=.*|HOME_URL=\"$HOME_URL\"|" /usr/lib/os-release
-sed -i "s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"$DOCUMENTATION_URL\"|" /usr/lib/os-release
-sed -i "s|^SUPPORT_URL=.*|SUPPORT_URL=\"$SUPPORT_URL\"|" /usr/lib/os-release
-sed -i "s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"$BUG_SUPPORT_URL\"|" /usr/lib/os-release
-sed -i "s|^CPE_NAME=\"cpe:/o:fedoraproject:fedora|CPE_NAME=\"cpe:/o:winblues:${IMAGE_PRETTY_NAME,}|" /usr/lib/os-release
-sed -i "s/^DEFAULT_HOSTNAME=.*/DEFAULT_HOSTNAME=\"${DEFAULT_HOSTNAME,}\"/" /usr/lib/os-release
-sed -i "s/^ID=fedora/ID=${IMAGE_PRETTY_NAME,}\nID_LIKE=\"${IMAGE_LIKE}\"/" /usr/lib/os-release
-sed -i "/^REDHAT_BUGZILLA_PRODUCT=/d; /^REDHAT_BUGZILLA_PRODUCT_VERSION=/d; /^REDHAT_SUPPORT_PRODUCT=/d; /^REDHAT_SUPPORT_PRODUCT_VERSION=/d" /usr/lib/os-release
+sed -i \
+  "s/^VARIANT_ID=.*/VARIANT_ID=$IMAGE_NAME/" \
+  /usr/lib/os-release
+sed -i \
+  "s/^PRETTY_NAME=.*/PRETTY_NAME=\"${IMAGE_PRETTY_NAME} (FROM Fedora ${BASE_IMAGE_NAME^})\"/" \
+  /usr/lib/os-release
+sed -i \
+  "s/^NAME=.*/NAME=\"$IMAGE_PRETTY_NAME\"/" \
+  /usr/lib/os-release
+sed -i \
+  "s/^ID=.*/ID=\"$IMAGE_NAME\"/" \
+  /usr/lib/os-release
+sed -i \
+  "s|^HOME_URL=.*|HOME_URL=\"$HOME_URL\"|" \
+  /usr/lib/os-release
+sed -i \
+  "s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"$DOCUMENTATION_URL\"|" \
+  /usr/lib/os-release
+sed -i \
+  "s|^SUPPORT_URL=.*|SUPPORT_URL=\"$SUPPORT_URL\"|" \
+  /usr/lib/os-release
+sed -i \
+  "s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"$BUG_SUPPORT_URL\"|" \
+  /usr/lib/os-release
+sed -i \
+  "s|^CPE_NAME=\"cpe:/o:fedoraproject:fedora|CPE_NAME=\"cpe:/o:winblues:${IMAGE_PRETTY_NAME,}|" \
+  /usr/lib/os-release
+sed -i \
+  "s/^DEFAULT_HOSTNAME=.*/DEFAULT_HOSTNAME=\"${DEFAULT_HOSTNAME,}\"/" \
+  /usr/lib/os-release
+sed -i \
+  "s/^ID=fedora/ID=${IMAGE_PRETTY_NAME,}\nID_LIKE=\"${IMAGE_LIKE}\"/" \
+  /usr/lib/os-release
 
-# Add ID_LIKE tag to allow external apps to properly identify that this
-# is based on Fedora Atomic
+# Add ID_LIKE tag to allow external apps to properly identify that this is based on Fedora Atomic
 echo "ID_LIKE=\"${IMAGE_LIKE}\"" >> /usr/lib/os-release
 
 # Fix issues caused by ID no longer being fedora
-sed -i "s/^EFIDIR=.*/EFIDIR=\"fedora\"/" /usr/sbin/grub2-switch-to-blscfg
+sed -i \
+  "s/^EFIDIR=.*/EFIDIR=\"fedora\"/" \
+  /usr/sbin/grub2-switch-to-blscfg
 
 # Switch to generic logos, because why not
 dnf swap fedora-logos generic-logos -y
 
-## ----------------------------------------------------------------------------
+## ------------------------------------------------------------------------------------------------
 ##    Packages
-## ----------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------
 
 install() {
   echo "[install] $@"
@@ -79,6 +101,11 @@ install-from-copr() {
   dnf5 copr enable "$1" -y
   dnf5 install "$2" -y
   dnf5 copr disable "$1" -y
+}
+
+enable-service() {
+  echo "[service] $1"
+  systemctl enable "$1.service"
 }
 
 ## === IN: KDE Utilities
@@ -176,3 +203,7 @@ install-from-copr scottames/ghostty \
 # * KDE-Rounded-Corners (COPR)
 install-from-copr matinlotfali/KDE-Rounded-Corners \
                   kwin-effect-roundcorners
+
+# * Radicale
+install radicale
+enable-service radicale
