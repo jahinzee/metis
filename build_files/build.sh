@@ -205,5 +205,5 @@ install-from-copr matinlotfali/KDE-Rounded-Corners \
                   kwin-effect-roundcorners
 
 # * Radicale
-install radicale
-enable-service radicale
+# install radicale
+# enable-service radicale
