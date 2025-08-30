@@ -142,6 +142,7 @@ install helix \
         fd \
         fastfetch \
         qalculate \
+        merkuro
 
 # * pipx
 #   manage ""Python"" packages
