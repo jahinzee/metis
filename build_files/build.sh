@@ -189,3 +189,7 @@ install-from-copr matinlotfali/KDE-Rounded-Corners \
 # ext-pkg: Librewolf (extern repo)
 curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
 install librewolf
+
+# Setup native messaging host for Plasma integration.
+mkdir -p /usr/lib/librewolf/
+ln -s /usr/lib/mozilla/native-messaging-hosts /usr/lib/librewolf/native-messaging-hosts
