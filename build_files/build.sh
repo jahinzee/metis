@@ -2,9 +2,9 @@
 
 set -ouex pipefail
 
-## ------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------
 ##    Branding
-## ------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------
 
 # This section adapted from:
 #    https://github.com/winblues/blue95/blob/main/files/scripts/00-image-info.sh
@@ -87,9 +87,9 @@ sed -i \
 # Switch to generic logos, because why not
 dnf swap fedora-logos generic-logos -y
 
-## ------------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------
 ##    Packages
-## -----------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------------------------------
 
 install() {
   echo "[install] $@"
@@ -108,8 +108,8 @@ enable-service() {
   systemctl enable "$1.service"
 }
 
-## === IN: KDE Utilities
 
+# pkg: KDE Utilities
 install kclock \
         yakuake \
         kclock \
@@ -124,16 +124,9 @@ install kclock \
         okular \
         plasma-browser-integration
 
-## === IN: Coolutils
-
-# Like `coreutils`, but cooler!
-
-# * fish
-#   you'll have to change the login shell from `bash` yourself
-install fish
-
-# * Basic tools
-install helix \
+# pkg: shell and some cli utils
+install fish \
+        helix \
         neovim \
         bat \
         btop \
@@ -144,67 +137,55 @@ install helix \
         qalculate \
         merkuro
 
-# * pipx
-#   manage ""Python"" packages
+# pkg: pipx
 install pipx
 
-# * eza
-#   better `ls` (COPR)
-#   TODO: drop the copr repo and install from main repos
-#         when F42 has it back in stock.
-#         <https://github.com/eza-community/eza/blob/main/INSTALL.md#fedora>
+# copr-pkg: eza
+# TODO: drop the copr repo and install from main repos when F42 has it back in stock.
+#       <https://github.com/eza-community/eza/blob/main/INSTALL.md#fedora>
 install-from-copr dturner/eza \
                   eza
 
-# * topgrade
-#   system update utility (COPR)
+# copr-pkg: topgrade
 install-from-copr lilay/topgrade \
                   topgrade
 
-## == IN: Virtualisation
-
+# pkg: libvirt
 install @virtualization
 
-## == IN: ..put Methods
-
-# * jp
-#   Japanese/日本語
+# pkg: Japanese IME
 install fcitx5-mozc
 
-# * bn
-#   Bengali/বাংলা (COPR)
+# copr-pkg: Bengali IME
 install-from-copr badshah/openbangla-keyboard \
                   fcitx-openbangla
 
-## == IN: Miscellaneous
-
-# * Thunderbird
-#   I find this to be more reliable than the Flatpak version :\
+# pkg: thunderbird
+# I find the native package to be more reliable than the Flatpak version.
 install thunderbird
 
-# * Homebrew support packages
-#   Since Homebrew is a user-level tool, integrating it on the system
-#   layer doesn't make a lot of sense, but installing its dependencies
-#   is fine.
+# pkg: Homebrew support packages
+# Since Homebrew is a user-level tool, integrating it on the system layer doesn't make a lot of
+# sense, but installing the dependencies is fine.
 install @development-tools \
         procps-ng \
         curl \
         file
 
-# * Syncthing
+# pkg: syncthing
 install syncthing
 
-# * Printer drivers
+# pkg: Brother printer drivers
 install printer-driver-brlaser
 
-# * Ghostty (COPR)
+# copr-pkg: ghostty
 install-from-copr scottames/ghostty \
                   ghostty
 
-# * KDE-Rounded-Corners (COPR)
+# copr-pkg: KDE-Rounded-Corners
 install-from-copr matinlotfali/KDE-Rounded-Corners \
                   kwin-effect-roundcorners
 
-# * Radicale
-# install radicale
-# enable-service radicale
+# ext-pkg: Librewolf (extern repo)
+curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
+install librewolf
