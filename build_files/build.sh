@@ -1,16 +1,25 @@
 #!/bin/bash
-
+# region setup
 set -ouex pipefail
 
-## -------------------------------------------------------------------------------------------------
-##    Branding
-## -------------------------------------------------------------------------------------------------
+install() {
+  dnf5 install -y "$@"
+}
+
+install-from-copr() {
+  dnf5 copr enable "$1" -y
+  dnf5 install "$2" -y
+  dnf5 copr disable "$1" -y
+}
+
+# endregion
+# region branding
 
 # This section adapted from:
 #    https://github.com/winblues/blue95/blob/main/files/scripts/00-image-info.sh
 # Authors:
 #    jahinzee, ledif
-# Changes: added metis branding, custom hostname, and generic logos
+# Changes: added metis branding, custom hostname, generic logos, and fixes for topgrade.
 
 IMAGE_VENDOR="jahinzee"
 IMAGE_NAME="metis"
@@ -87,32 +96,11 @@ sed -i \
 # Switch to generic logos, because why not
 dnf swap fedora-logos generic-logos -y
 
-## -------------------------------------------------------------------------------------------------
-##    Packages
-## -------------------------------------------------------------------------------------------------
-
-install() {
-  echo "[install] $@"
-  dnf5 install -y "$@"
-}
-
-install-from-copr() {
-  echo "[install] (copr:$1) $2"
-  dnf5 copr enable "$1" -y
-  dnf5 install "$2" -y
-  dnf5 copr disable "$1" -y
-}
-
-enable-service() {
-  echo "[service] $1"
-  systemctl enable "$1.service"
-}
-
+# endregion
 
 # pkg: KDE Utilities
 install kclock \
         yakuake \
-        kclock \
         kcolorchooser \
         yakuake \
         kolourpaint \
@@ -122,12 +110,15 @@ install kclock \
         kalk \
         krdc \
         okular \
+        merkuro \
+        kcm_systemd \
+        ksystemlog \
         plasma-browser-integration
 
 # pkg: shell and some cli utils
 install fish \
         helix \
-        neovim \
+        vim \
         bat \
         btop \
         zoxide \
@@ -135,20 +126,17 @@ install fish \
         fd \
         fastfetch \
         qalculate \
-        merkuro
 
 # pkg: pipx
 install pipx
 
 # copr-pkg: eza
-# TODO: drop the copr repo and install from main repos when F42 has it back in stock.
+# TODO: drop the copr repo and use the main repos when F42 has it back in stock.
 #       <https://github.com/eza-community/eza/blob/main/INSTALL.md#fedora>
-install-from-copr dturner/eza \
-                  eza
+install-from-copr dturner/eza eza
 
 # copr-pkg: topgrade
-install-from-copr lilay/topgrade \
-                  topgrade
+install-from-copr lilay/topgrade topgrade
 
 # pkg: libvirt
 install @virtualization
@@ -159,10 +147,6 @@ install fcitx5-mozc
 # copr-pkg: Bengali IME
 install-from-copr badshah/openbangla-keyboard \
                   fcitx-openbangla
-
-# pkg: thunderbird
-# I find the native package to be more reliable than the Flatpak version.
-install thunderbird
 
 # pkg: Homebrew support packages
 # Since Homebrew is a user-level tool, integrating it on the system layer doesn't make a lot of
@@ -190,7 +174,9 @@ install-from-copr matinlotfali/KDE-Rounded-Corners \
 curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
 install librewolf
 
-# Setup native messaging host for Plasma integration.
-mkdir -p /usr/lib/librewolf/
-ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib64/librewolf/native-messaging-hosts
-ln -s /usr/lib/mozilla/native-messaging-hosts /usr/lib/librewolf/native-messaging-hosts
+# setup: Native messaging support for Plasma integration.
+# NOTE: The instructions from the Librewolf FAQ don't work for Fedora, since Fedora's Firefox
+#       package installs the hosts at /usr/lib64 instead of /usr/lib. 
+#       See: https://codeberg.org/librewolf/issues/issues/2383
+mkdir /usr/lib/librewolf
+ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib/librewolf/native-messaging-hosts
