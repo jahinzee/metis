@@ -192,4 +192,5 @@ install librewolf
 
 # Setup native messaging host for Plasma integration.
 mkdir -p /usr/lib/librewolf/
+ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib64/librewolf/native-messaging-hosts
 ln -s /usr/lib/mozilla/native-messaging-hosts /usr/lib/librewolf/native-messaging-hosts
