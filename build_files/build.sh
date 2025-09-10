@@ -170,6 +170,13 @@ install-from-copr scottames/ghostty \
 install-from-copr matinlotfali/KDE-Rounded-Corners \
                   kwin-effect-roundcorners
 
+# copr-pkg: Zen Browser
+# FIX: The zen-browser package needs to throw some stuff in /opt, which doesn't exist, so we'll make
+#      /var/opt (which is already symlinked to /opt) so the package will install properly.
+mkdir /var/opt
+install-from-copr sneexy/zen-browser \
+                  zen-browser
+
 # ext-pkg: Librewolf (extern repo)
 curl -fsSL https://repo.librewolf.net/librewolf.repo | tee /etc/yum.repos.d/librewolf.repo
 install librewolf
@@ -178,5 +185,7 @@ install librewolf
 # NOTE: The instructions from the Librewolf FAQ don't work for Fedora, since Fedora's Firefox
 #       package installs the hosts at /usr/lib64 instead of /usr/lib. 
 #       See: https://codeberg.org/librewolf/issues/issues/2383
+#
+# FIXME: still does not work '-'
 mkdir /usr/lib/librewolf
 ln -s /usr/lib64/mozilla/native-messaging-hosts /usr/lib/librewolf/native-messaging-hosts
