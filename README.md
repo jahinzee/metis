@@ -1,6 +1,6 @@
 
-> [!WARNING] DEPRECATED
-> This image is deprecated, and will no longer receive any maintenance. It has been replaced by
+> [!WARNING]
+> This image is **deprecated**, and will no longer receive any maintenance. It has been replaced by
 > [`jahinzee/metis-ii`](https://github.com/jahinzee/metis-ii).
 
 ---
