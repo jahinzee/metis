@@ -1,3 +1,10 @@
+
+> [!WARNING] DEPRECATED
+> This image is deprecated, and will no longer receive any maintenance. It has been replaced by
+> [`jahinzee/metis-ii`](https://github.com/jahinzee/metis-ii).
+
+---
+
 # metis
 
 An atomic distro for an audience of one (me).
