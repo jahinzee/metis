@@ -13,12 +13,14 @@ install elisa \
         gwenview \
         haruna \
         kalk \
+        kamoso \
         kclock \
         kcm_systemd \
         kcolorchooser \
         kolourpaint \
         krdc \
         ksystemlog \
+        lm_sensors \
         merkuro \
         okular \
         plasma-browser-integration \
