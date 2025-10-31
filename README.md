@@ -9,8 +9,10 @@ An atomic distro for an audience of one (me).
 ## Further Links
 
 - The original [image-template README][] for reference.
+- The [maintenance notes][] – check here first in case something goes wrong.
 
 [image-template README]: /docs/old-readme.md
+[maintenance notes]: /docs/maintenance-notes.md
 
 ## Usage
 
