@@ -104,6 +104,13 @@ rm /opt && mkdir /opt
 enable-coprs sneexy/zen-browser
 install zen-browser
 
+# ››› AppImageLauncher
+# 
+# NOTE: Must be manually bumped when necessary.
+#       Current version:  v3.0.0-beta-3
+#       Check URL:        https://github.com/TheAssassin/AppImageLauncher/releases
+install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
+
 # ››› Cleanup and finalisation
 #
 clean-all
