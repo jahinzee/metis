@@ -116,6 +116,11 @@ install zen-browser
 #       Check URL:        https://github.com/TheAssassin/AppImageLauncher/releases
 install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
 
+# ››› KDE-Rounded-Corners
+#
+enable-coprs matinlotfali/KDE-Rounded-Corners
+install kwin-effect-roundcorners
+
 # ››› Cleanup and finalisation
 #
 clean-all
