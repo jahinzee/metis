@@ -65,11 +65,14 @@ install @virtualization
 
 # ››› IMEs (jp/bn)
 #
-enable-coprs badshah/openbangla-keyboard
-install fcitx5 \
+# enable-coprs badshah/openbangla-keyboard
+install \
+fcitx5 \
         fcitx5-mozc \
         kcm-fcitx5 \
-        fcitx-openbangla
+#         fcitx-openbangla
+# TEMPORARY: Using the F42 build of OpenBangla until packaging is ready for Fedora 43.
+install "https://download.copr.fedorainfracloud.org/results/badshah/openbangla-keyboard/fedora-42-x86_64/09018418-fcitx-openbangla/fcitx-openbangla_3.0.0-.rpm"
 
 # ››› Homebrew (support packages)
 #
