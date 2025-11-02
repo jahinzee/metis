@@ -19,3 +19,9 @@ a build error, check here first!
 - No usable COPR is available for AppImageLauncher, probably cause the last stable version is from
   2020.
 - **Will need to manually bump release URL for updates.**
+
+---
+
+### `kwin-effect-roundcorners`: Disabled
+
+- Might be causing issues with Plasma 6.5 (needs further investigating)

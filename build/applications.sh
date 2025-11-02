@@ -118,8 +118,9 @@ install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.
 
 # ››› KDE-Rounded-Corners
 #
-enable-coprs matinlotfali/KDE-Rounded-Corners
-install kwin-effect-roundcorners
+# DISABLED: Might be causing some issues with Plasma 6.5?
+# enable-coprs matinlotfali/KDE-Rounded-Corners
+# install kwin-effect-roundcorners
 
 # ››› Cleanup and finalisation
 #
