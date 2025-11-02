@@ -5,8 +5,9 @@ a build error, check here first!
 
 ---
 
-### `fcitx-openbangla`: Locked on F42 package
+### `fcitx-openbangla`: Locked on F42 package / Disabled
 
+- **DISABLED**: might be causing issues with Plasma 6.5 (needs further investigating)
 - Waiting for upstream to release official F43 packages, and for it to be available on a COPR repo 
   (e.g. `badshah/openbangla-keyboard`) to update as well
 - Prefer to use an up-to-date COPR instead of upstream GitHub release, since the GH releases are on
@@ -14,10 +15,11 @@ a build error, check here first!
 
 ---
 
-### `appimagelauncher`: Using GitHub Release builds
+### `appimagelauncher`: Using GitHub Release builds / Disabled
 
 - No usable COPR is available for AppImageLauncher, probably cause the last stable version is from
   2020.
+- **DISABLED**: might be causing issues with Plasma 6.5 (needs further investigating)
 - **Will need to manually bump release URL for updates.**
 
 ---

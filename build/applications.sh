@@ -75,7 +75,8 @@ install \
     kcm-fcitx5 \
     # fcitx-openbangla
 # TEMPORARY: Using the F42 build of OpenBangla until packaging is ready for Fedora 43.
-install "https://download.copr.fedorainfracloud.org/results/badshah/openbangla-keyboard/fedora-42-x86_64/09018418-fcitx-openbangla/fcitx-openbangla_3.0.0-.rpm"
+# DISABLE: Might be causing some issues with Plasma 6.5?
+# install "https://download.copr.fedorainfracloud.org/results/badshah/openbangla-keyboard/fedora-42-x86_64/09018418-fcitx-openbangla/fcitx-openbangla_3.0.0-.rpm"
 
 # ››› Homebrew (support packages)
 #
@@ -114,7 +115,8 @@ install zen-browser
 # NOTE: Must be manually bumped when necessary.
 #       Current version:  v3.0.0-beta-3
 #       Check URL:        https://github.com/TheAssassin/AppImageLauncher/releases
-install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
+# DISABLED: Might be causing some issues with Plasma 6.5?
+# install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
 
 # ››› KDE-Rounded-Corners
 #
