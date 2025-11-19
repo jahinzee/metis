@@ -39,8 +39,10 @@ install \
 enable-coprs \
     atim/starship \
     dturner/eza \
+    goncalossilva/act \
     lilay/topgrade
 install \
+    act-cli \
     bat \
     btop \
     distrobox \
@@ -90,7 +92,7 @@ install \
 
 # ››› Syncthing and SyncthingTray (Plasmoid/KIO/CLI)
 #
-enable-obs-repos home:mkittler
+enable-obs-repos "home:mkittler"
 install \
     syncthing \
     syncthingplasmoid-qt6 \
@@ -123,8 +125,3 @@ install zen-browser
 # DISABLED: Might be causing some issues with Plasma 6.5?
 # enable-coprs matinlotfali/KDE-Rounded-Corners
 # install kwin-effect-roundcorners
-
-# ››› Cleanup and finalisation
-#
-clean-all
-commit-ostree

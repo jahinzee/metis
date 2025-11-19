@@ -5,3 +5,6 @@ set -ouex pipefail
 . /ctx/common.sh 
 . /ctx/branding.sh
 . /ctx/applications.sh
+
+clean-all
+commit-ostree
