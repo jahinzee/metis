@@ -108,17 +108,3 @@ install printer-driver-brlaser
 rm /opt && mkdir /opt
 enable-coprs sneexy/zen-browser
 install zen-browser
-
-# ››› AppImageLauncher
-# 
-# NOTE: Must be manually bumped when necessary.
-#       Current version:  v3.0.0-beta-3
-#       Check URL:        https://github.com/TheAssassin/AppImageLauncher/releases
-# DISABLED: Might be causing some issues with Plasma 6.5?
-# install "https://github.com/TheAssassin/AppImageLauncher/releases/download/v3.0.0-beta-3/appimagelauncher_3.0.0-beta-2-gha287.96cb937_x86_64.rpm"
-
-# ››› KDE-Rounded-Corners
-#
-# DISABLED: Might be causing some issues with Plasma 6.5?
-# enable-coprs matinlotfali/KDE-Rounded-Corners
-# install kwin-effect-roundcorners
