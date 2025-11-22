@@ -7,4 +7,4 @@ set -ouex pipefail
 . /ctx/applications.sh
 
 clean-all
-commit-ostree
+ostree container commit

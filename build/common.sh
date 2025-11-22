@@ -80,9 +80,3 @@ clean-all() {
     clean-coprs
     clean-obs-repos
 }
-
-# ››› Commit all packages to the OSTree container.
-#
-commit-ostree() {
-    ostree container commit
-}
