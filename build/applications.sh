@@ -70,15 +70,12 @@ install @virtualization
 
 # ››› IMEs (jp/bn)
 #
-# enable-coprs badshah/openbangla-keyboard
+enable-coprs badshah/openbangla-keyboard
 install \
     fcitx5 \
     fcitx5-mozc \
     kcm-fcitx5 \
-    # fcitx-openbangla
-# TEMPORARY: Using the F42 build of OpenBangla until packaging is ready for Fedora 43.
-# DISABLE: Might be causing some issues with Plasma 6.5?
-# install "https://download.copr.fedorainfracloud.org/results/badshah/openbangla-keyboard/fedora-42-x86_64/09018418-fcitx-openbangla/fcitx-openbangla_3.0.0-.rpm"
+    fcitx-openbangla
 
 # ››› Homebrew (support packages)
 #
@@ -92,7 +89,7 @@ install \
 
 # ››› Syncthing and SyncthingTray (Plasmoid/KIO/CLI)
 #
-enable-obs-repos "home:mkittler"
+enable-obs-repos home:mkittler
 install \
     syncthing \
     syncthingplasmoid-qt6 \
