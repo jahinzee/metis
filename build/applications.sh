@@ -8,9 +8,14 @@ set -ouex pipefail
 #      + install base system applications
 #
 
-# ››› Remove: ujust
+# ››› Remove: ujust and Firefox
 #
-remove ublue-os-just 
+remove ublue-os-just
+remove firefox
+
+# ››› Setup: Terra
+#
+enable-terra
 
 # ››› Desktop applications
 #
@@ -34,15 +39,7 @@ install \
 
 # ››› Command-line and core applications
 #
-# INFO: `eza` is not available in the stock Fedora repos, so we're installing from a COPR.
-#       See: <https://github.com/eza-community/eza/blob/main/INSTALL.md#fedora>
-enable-coprs \
-    atim/starship \
-    dturner/eza \
-    goncalossilva/act \
-    lilay/topgrade
 install \
-    act-cli \
     bat \
     btop \
     distrobox \
@@ -51,6 +48,7 @@ install \
     fd \
     fish \
     fortune-mod \
+    gh-act \
     helix \
     hyperfine \
     pipx \
@@ -108,6 +106,9 @@ install printer-driver-brlaser
 rm /opt && mkdir /opt
 enable-coprs sneexy/zen-browser
 install zen-browser
+
+# ››› Helium Browser
+install helium-browser-bin
 
 # ››› Tailscale
 #

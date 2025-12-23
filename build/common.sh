@@ -36,6 +36,13 @@ install-from-obs-repo() {
     rm "/etc/yum.repos.d/$repo.repo"
 }
 
+# ››› Enable the Terra repository.
+#
+enable-terra() {
+    curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo
+    dnf5 install terra-release -y
+}
+
 # ››› Enable a set of COPRs, and save it to a context file.
 #
 enable-coprs() {
@@ -92,6 +99,12 @@ clean-other-repos() {
     rm .ctx-other-repos
 }
 
+# ››› Delete the Terra repository file.
+#
+clean-terra() {
+    rm /etc/yum.repos.d/terra.repo
+}
+
 
 # ››› Perform all cleanup actions.
 #
@@ -99,4 +112,5 @@ clean-all() {
     clean-coprs
     clean-obs-repos
     clean-other-repos
+    clean-terra
 }
