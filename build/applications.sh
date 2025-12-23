@@ -108,3 +108,8 @@ install printer-driver-brlaser
 rm /opt && mkdir /opt
 enable-coprs sneexy/zen-browser
 install zen-browser
+
+# ››› Tailscale
+#
+enable-other-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+install tailscale

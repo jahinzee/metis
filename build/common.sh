@@ -56,6 +56,15 @@ enable-obs-repos() {
     done
 }
 
+# ››› Enable a set of plain URL (other) repositories, and save it to a context file.
+#
+enable-other-repo() {
+    for repo in "$@"; do
+        sudo dnf config-manager addrepo --from-repofile="$repo"
+        echo "${repo##*/}" >> .ctx-other-repos
+    done
+}
+
 # ››› Disable all COPRs from the context file.
 #
 clean-coprs() {
@@ -74,9 +83,20 @@ clean-obs-repos() {
     rm .ctx-obs-repos
 }
 
+# ››› Delete all other repositories from the context file.
+#
+clean-other-repos() {
+    while read -r repo; do
+        rm "/etc/yum.repos.d/$repo"
+    done < .ctx-other-repos
+    rm .ctx-other-repos
+}
+
+
 # ››› Perform all cleanup actions.
 #
 clean-all() {
     clean-coprs
     clean-obs-repos
+    clean-other-repos
 }
