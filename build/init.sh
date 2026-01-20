@@ -135,6 +135,7 @@ install \
     elisa \
     gwenview \
     haruna \
+    just \
     kalk \
     kamoso \
     kclock \
