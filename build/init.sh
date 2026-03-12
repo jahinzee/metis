@@ -130,6 +130,8 @@ defer uninstall terra-release
 
 # Install: desktop applications
 #
+enable-copr fuddlesworth/PlasmaZones
+defer disable-copr fuddlesworth/PlasmaZones
 install \
     @development-tools \
     elisa \
@@ -148,6 +150,7 @@ install \
     merkuro \
     okular \
     plasma-browser-integration \
+    plasmazones \
     yakuake 
 
 # Install: command-line and core applications
