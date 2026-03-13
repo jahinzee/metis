@@ -21,13 +21,17 @@ function install { dnf5 install -y "$@"; }
 function uninstall { dnf5 remove -y "$@"; }
 function swap { dnf5 swap -y "$1" "$2"; }
 
-function enable-copr { dnf5 copr enable -y "$1"; }
 function disable-copr { dnf5 copr disable -y "$1"; }
+function enable-copr { dnf5 copr enable -y "$1"; }
+function enable-copr-dd { enable-copr "$1"; defer disable-copr "$1"; }
 
-function enable-repo { dnf5 config-manager addrepo -y --from-repofile="$1"; }
-function enable-repo-from-url { enable-repo "$2/$1.repo"; }
-function enable-obs-repo { enable-repo-from-url "$1" "https://download.opensuse.org/repositories/$1/Fedora_$(get-fedora-release)"; }
 function remove-repo { rm "/etc/yum.repos.d/$1.repo"; } 
+function enable-repo { dnf5 config-manager addrepo -y --from-repofile="$1"; }
+function enable-repo-dd { enable-repo "$1"; defer remove-repo "$1"; }
+function enable-repo-from-url { enable-repo "$2/$1.repo"; }
+function enable-repo-from-url-dd { enable-repo "$2/$1.repo"; defer remove-repo "$1"; }
+function enable-obs-repo { enable-repo-from-url "$1" "https://download.opensuse.org/repositories/$1/Fedora_$(get-fedora-release)"; }
+function enable-obs-repo-dd { enable-obs-repo "$1"; defer remove-repo "$1"; }
 
 function sed-os-release { for arg in "$@"; do sed -i "$arg" /usr/lib/os-release; done; }
 
@@ -130,8 +134,6 @@ defer uninstall terra-release
 
 # Install: desktop applications
 #
-enable-copr fuddlesworth/PlasmaZones
-defer disable-copr fuddlesworth/PlasmaZones
 install \
     @development-tools \
     elisa \
@@ -150,8 +152,16 @@ install \
     merkuro \
     okular \
     plasma-browser-integration \
-    plasmazones \
     yakuake 
+
+
+# Install: desktop tweaks
+#
+enable-copr-dd fuddlesworth/PlasmaZones
+enable-copr-dd matinlotfali/KDE-Rounded-Corners
+install kwin-effect-roundcorners \
+        plasmazones
+
 
 # Install: command-line and core applications
 #
@@ -179,8 +189,7 @@ install @virtualization
 
 # Install: IMEs (jp/bn)
 #
-enable-copr badshah/openbangla-keyboard
-defer disable-copr badshah/openbangla-keyboard
+enable-copr-dd badshah/openbangla-keyboard
 install \
     fcitx5 \
     fcitx5-mozc \
@@ -189,8 +198,7 @@ install \
 
 # Install: Syncthing and SyncthingTray (Plasmoid/KIO/CLI)
 #
-enable-obs-repo home:mkittler
-defer remove-repo home:mkittler
+enable-obs-repo-dd home:mkittler
 install \
     syncthing \
     syncthingplasmoid-qt6 \
@@ -207,15 +215,13 @@ install printer-driver-brlaser
 #      manually (rem)make the /opt directory (replacing the existing one which is just a symlink
 #      to /var/opt)
 rm /opt && mkdir /opt
-enable-copr sneexy/zen-browser
-defer disable-copr sneexy/zen-browser
+enable-copr-dd sneexy/zen-browser
 install zen-browser
 install helium-browser-bin
 
 # Install: Tailscale
 #
-enable-repo-from-url tailscale https://pkgs.tailscale.com/stable/fedora
-defer remove-repo tailscale
+enable-repo-from-url-dd tailscale https://pkgs.tailscale.com/stable/fedora
 install tailscale
 
 # endregion
