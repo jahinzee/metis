@@ -174,6 +174,7 @@ install \
     fd \
     fish \
     helix \
+    nix \
     podman-docker \
     podman-compose \
     ripgrep \
