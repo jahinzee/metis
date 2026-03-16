@@ -122,9 +122,8 @@ swap fedora-logos generic-logos
 
 # Remove: ujust, Firefox
 #
-uninstall \
-    ublue-os-just \
-    firefox
+uninstall ublue-os-just \
+          firefox
 
 # Setup: Terra
 #
@@ -134,55 +133,51 @@ defer uninstall terra-release
 
 # Install: desktop applications
 #
-install \
-    @development-tools \
-    elisa \
-    gwenview \
-    haruna \
-    just \
-    kalk \
-    kamoso \
-    kclock \
-    kcm_systemd \
-    kcolorchooser \
-    kolourpaint \
-    krdc \
-    ksystemlog \
-    lm_sensors \
-    merkuro \
-    okular \
-    plasma-browser-integration \
-    yakuake 
+install @development-tools \
+        elisa \
+        gwenview \
+        haruna \
+        just \
+        kalk \
+        kamoso \
+        kclock \
+        kcm_systemd \
+        kcolorchooser \
+        kolourpaint \
+        krdc \
+        ksystemlog \
+        lm_sensors \
+        merkuro \
+        okular \
+        plasma-browser-integration \
+        yakuake 
 
 
 # Install: desktop tweaks
 #
-enable-copr-dd fuddlesworth/PlasmaZones
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
-install kwin-effect-roundcorners \
-        plasmazones
+install kwin-effect-roundcorners
 
 
 # Install: command-line and core applications
 #
-install \
-    bat \
-    btop \
-    distrobox \
-    eza \
-    fastfetch \
-    fd \
-    fish \
-    helix \
-    nix \
-    podman-docker \
-    podman-compose \
-    ripgrep \
-    starship \
-    topgrade \
-    vim \
-    xlsclients \
-    zoxide
+install bat \
+        btop \
+        distrobox \
+        eza \
+        fastfetch \
+        fd \
+        fish \
+        helix \
+        podman-docker \
+        podman-compose \
+        ripgrep \
+        rclone \
+        starship \
+        topgrade \
+        vim \
+        xlsclients \
+        zoxide
 
 # Install: virtualisation stack (libvirt/QEMU/KVM)
 #
@@ -191,20 +186,18 @@ install @virtualization
 # Install: IMEs (jp/bn)
 #
 enable-copr-dd badshah/openbangla-keyboard
-install \
-    fcitx5 \
-    fcitx5-mozc \
-    kcm-fcitx5 \
-    fcitx-openbangla
+install fcitx5 \
+        fcitx5-mozc \
+        kcm-fcitx5 \
+        fcitx-openbangla
 
 # Install: Syncthing and SyncthingTray (Plasmoid/KIO/CLI)
 #
 enable-obs-repo-dd home:mkittler
-install \
-    syncthing \
-    syncthingplasmoid-qt6 \
-    syncthingfileitemaction-qt6 \
-    syncthingctl-qt6
+install syncthing \
+        syncthingplasmoid-qt6 \
+        syncthingfileitemaction-qt6 \
+        syncthingctl-qt6
 
 # Install: printer drivers (brlaser)
 #
@@ -217,8 +210,8 @@ install printer-driver-brlaser
 #      to /var/opt)
 rm /opt && mkdir /opt
 enable-copr-dd sneexy/zen-browser
-install zen-browser
-install helium-browser-bin
+install zen-browser \
+        helium-browser-bin
 
 # Install: Tailscale
 #
