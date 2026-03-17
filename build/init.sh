@@ -168,6 +168,7 @@ install bat \
         fastfetch \
         fd \
         fish \
+        ghostty \
         helix \
         podman-docker \
         podman-compose \
