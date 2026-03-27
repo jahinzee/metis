@@ -156,7 +156,9 @@ install @development-tools \
 # Install: desktop tweaks
 #
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
-install kwin-effect-roundcorners
+enable-obs-repo-dd home:manuelschneid3r
+install kwin-effect-roundcorners \
+        albert
 
 
 # Install: command-line and core applications
