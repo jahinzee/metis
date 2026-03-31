@@ -156,9 +156,10 @@ install @development-tools \
 # Install: desktop tweaks
 #
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
-enable-obs-repo-dd home:manuelschneid3r
+enable-copr-dd errornointernet/walker
 install kwin-effect-roundcorners \
-        albert
+        elephant \
+        walker
 
 
 # Install: command-line and core applications
