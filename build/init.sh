@@ -153,14 +153,19 @@ install @development-tools \
         yakuake 
 
 
-# Install: desktop tweaks
+# Install: desktop tweaks + Walker/Elephant
 #
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
 enable-copr-dd errornointernet/walker
 install kwin-effect-roundcorners \
         elephant \
+        elephant-calc \
+        elephant-desktopapplications \
+        elephant-files \
+        elephant-symbols \
+        elephant-unicode \
+        elephant-windows \
         walker
-
 
 # Install: command-line and core applications
 #
