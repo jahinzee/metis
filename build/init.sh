@@ -157,6 +157,7 @@ install @development-tools \
 #
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
 enable-copr-dd errornointernet/walker
+enable-copr-dd deltacopy/plasma6-applets-kara 
 install kwin-effect-roundcorners \
         elephant \
         elephant-calc \
@@ -165,7 +166,8 @@ install kwin-effect-roundcorners \
         elephant-symbols \
         elephant-unicode \
         elephant-windows \
-        walker
+        walker \
+        plasma6-applets-kara
 
 # Install: command-line and core applications
 #
