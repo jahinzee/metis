@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# ================================================================================================
+# FILE DEPRECATED -- replaced by /build/init.py
+# ================================================================================================
+
 # shellcheck disable=SC1091 source=.cleanup.sh
 set -ouex pipefail
 
@@ -156,18 +161,18 @@ install @development-tools \
 # Install: desktop tweaks + Walker/Elephant
 #
 enable-copr-dd matinlotfali/KDE-Rounded-Corners
-enable-copr-dd errornointernet/walker
+# enable-copr-dd errornointernet/walker
 enable-copr-dd deltacopy/plasma6-applets-kara 
 install kwin-effect-roundcorners \
-        elephant \
-        elephant-calc \
-        elephant-desktopapplications \
-        elephant-files \
-        elephant-symbols \
-        elephant-unicode \
-        elephant-windows \
-        walker \
         plasma6-applets-kara
+        # elephant \
+        # elephant-calc \
+        # elephant-desktopapplications \
+        # elephant-files \
+        # elephant-symbols \
+        # elephant-unicode \
+        # elephant-windows \
+        # walker \
 
 # Install: command-line and core applications
 #
