@@ -6,13 +6,15 @@ An atomic distro for an audience of one (me).
 > This image is made for my own personal use. If you choose to use this for whatever reason, I
 > cannot help you if something breaks.
 
-## Further Links
+## Further links
 
-- The original [image-template README][] for reference.
-- The [maintenance notes][] – check here first in case something goes wrong.
+- The [maintenance notes] – check here first in case something goes wrong.
+- Information regarding [Unibuild].
+- The original [image-template README] for reference.
 
 [image-template README]: /docs/old-readme.md
 [maintenance notes]: /docs/maintenance-notes.md
+[Unibuild]: #unibuild
 
 ## Usage
 
@@ -59,43 +61,20 @@ install" method.
 
 ## Post-Install Notes
 
-### Default Shell
+### Default shell
 
-You can switch your default shell to `fish` with `usermod` (`chsh` is not installed):
+You can switch your default shell to `fish` with `usermod` (`chsh` is not available):
 
 ```sh
 sudo usermod --shell /bin/fish "$(whoami)"
 ```
 
-### IME Setup
+### IME setup
 
 For proper IME support, open the *Virtual Keyboard* page in System Settings, and select and
 apply *Fcitx 5 Wayland Launcher (Experimental)*.
   
 Afterwards, log out and log in again to activate the IME.
-
-### Homebrew
-
-There are support packages for Homebrew, but Homebrew itself is not installed.
-
-Visit [the Homebrew website](https://brew.sh/) for up-to-date installation instructions.
-
-The post-install instructions require you to set your shell environment to load Homebrew, but these
-instructions are given for Bash only. For Fish, add [this code][] to your [Fish config][].
-
-[this code]: https://github.com/orgs/Homebrew/discussions/4412#discussioncomment-8314181
-[Fish config]: https://fishshell.com/docs/current/index.html#configuration
-
-### `pipx`
-
-`pipx` requires additional user-level shell support to access installed packages. This is easily
-done with this command:
-
-```sh
-pipx ensurepath
-```
-
-This will work for both Bash and Fish.
 
 ### Syncthing
 
@@ -108,3 +87,13 @@ systemctl enable "syncthing@$(whoami).service" --now
 Alternatively, create an Autostart entry in System Settings.
 
 
+### Unibuild
+
+[Unibuild] is a Python script I wrote for abstracting away complex build steps and package
+installations. I may get around to polishing it to the point of ship-ready, but for now it's only
+intended for this script.
+
+You're more than welcome to use it for your own image builds if you want, but don't expect any
+support or interface stability. **User beware!**
+
+[Unibuild]: /build/unibuild.py
