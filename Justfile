@@ -1,4 +1,4 @@
-export image_name := env("IMAGE_NAME", "metis") # output image name, usually same as repo name, change as needed
+export image_name := env("IMAGE_NAME", "metis")
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
 
@@ -97,6 +97,22 @@ build $target_image=image_name $tag=default_tag:
     podman build \
         "${BUILD_ARGS[@]}" \
         --pull=newer \
+        --tag "${target_image}:${tag}" \
+        .
+
+# Build the image using the specified parameters, without caches.
+build-clean $target_image=image_name $tag=default_tag:
+    #!/usr/bin/env bash
+
+    BUILD_ARGS=()
+    if [[ -z "$(git status -s)" ]]; then
+        BUILD_ARGS+=("--build-arg" "SHA_HEAD_SHORT=$(git rev-parse --short HEAD)")
+    fi
+
+    podman build \
+        "${BUILD_ARGS[@]}" \
+        --pull=newer \
+        --no-cache \
         --tag "${target_image}:${tag}" \
         .
 
@@ -292,7 +308,6 @@ spawn-vm rebuild="0" type="qcow2" ram="6G":
       --network-user-mode \
       --vsock=false --pass-ssh-key=false \
       -i ./output/**/*.{{ type }}
-
 
 # Runs shell check on all Bash scripts
 lint:
