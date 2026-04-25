@@ -49,7 +49,10 @@ def main():
 
     # Install: desktop apps and tweaks
     #
-    with setup.repos.ctx_copr("matinlotfali", "KDE-Rounded-Corners"):
+    with (
+        setup.repos.ctx_copr("matinlotfali", "KDE-Rounded-Corners"),
+        setup.repos.ctx_copr("deltacopy", "plasma6-applets-kara"),
+    ):
         setup.pkgs.install(
             "elisa",
             "gwenview",
@@ -66,6 +69,7 @@ def main():
             "merkuro",
             "okular",
             "plasma-browser-integration",
+            "plasma6-applets-kara",
         )
 
     # region .disabled-01

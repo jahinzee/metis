@@ -22,6 +22,11 @@ a build error, check here first for potential points of failure.
 
   - *Latest package versions (as of 2026-04-25)*: **44**
 
+* **deltacopy/plasma6-applets-kara** (COPR):
+  <https://copr.fedorainfracloud.org/coprs/deltacopy/plasma6-applets-kara>
+
+  - *Latest package versions (as of 2026-04-25)*: **44**
+
 * **badshah/openbangla-keyboard** (COPR):
   <https://copr.fedorainfracloud.org/coprs/badshah/openbangla-keyboard>
 
