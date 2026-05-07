@@ -113,6 +113,10 @@ def main():
         "zoxide",
     )
 
+    # Install: Nix
+    #
+    setup.pkgs.install("nix", "nix-daemon")
+
     # Install: virtualisation stack (libvirt/QEMU/KVM)
     #
     setup.pkgs.install("@virtualization")
