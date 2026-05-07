@@ -9,12 +9,11 @@ An atomic distro for an audience of one (me).
 ## Further links
 
 - The [maintenance notes] – check here first in case something goes wrong.
-- Information regarding [Unibuild].
+- Information regarding [Unibuild](#unibuild).
 - The original [image-template README] for reference.
 
 [image-template README]: /docs/old-readme.md
 [maintenance notes]: /docs/maintenance-notes.md
-[Unibuild]: #unibuild
 
 ## Usage
 

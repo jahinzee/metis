@@ -35,7 +35,7 @@ a build error, check here first for potential points of failure.
 * **home:mkittler** (OBS):
   <https://build.opensuse.org/project/show/home:mkittler>
 
-  - *Latest package versions (as of 2026-04-25)*: **43** ⚠️
+  - *Latest package versions (as of 2026-05-04)*: **44**
 
 * **sneexy/zen-browser** (COPR):
   <https://copr.fedorainfracloud.org/coprs/sneexy/zen-browser>
@@ -47,7 +47,7 @@ a build error, check here first for potential points of failure.
   <https://pkgs.tailscale.com/stable/fedora>
   
   - *Latest package versions (as of 2026-04-25)*: unknown
-  - Repair strategy: use `tailscale` package from Fedora repos.
+  - Known repair strategy: use `tailscale` package from Fedora repos.
 
 ### Manual patches
 
