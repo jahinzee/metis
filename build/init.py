@@ -54,20 +54,20 @@ def main():
         setup.repos.ctx_copr("deltacopy", "plasma6-applets-kara"),
     ):
         setup.pkgs.install(
-            "elisa",
-            "gwenview",
-            "haruna",
-            "kalk",
-            "kamoso",
-            "kclock",
-            "kcm_systemd",
-            "kcolorchooser",
-            "kolourpaint",
-            "krdc",
-            "ksystemlog",
+            # "elisa",
+            # "gwenview",
+            # "haruna",
+            # "kalk",
+            # "kamoso",
+            # "kclock",
+            # "kcm_systemd",
+            # "kcolorchooser",
+            # "kolourpaint",
+            # "krdc",
+            # "ksystemlog",
             "kwin-effect-roundcorners",
-            "merkuro",
-            "okular",
+            # "merkuro",
+            # "okular",
             "plasma-browser-integration",
             "plasma6-applets-kara",
         )
@@ -93,6 +93,7 @@ def main():
         "bat",
         "btop",
         "@development-tools",
+        "git",
         "distrobox",
         "eza",
         "fastfetch",
@@ -109,13 +110,13 @@ def main():
         "starship",
         "topgrade",
         "vim",
-        "xlsclients",
+        # "xlsclients",
         "zoxide",
     )
 
     # Install: Nix
     #
-    setup.pkgs.install("nix-core")
+    # setup.pkgs.install("nix-core")
 
     # Install: virtualisation stack (libvirt/QEMU/KVM)
     #
