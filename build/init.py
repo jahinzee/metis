@@ -1,6 +1,5 @@
 #!/bin/env python
 from unibuild import Setup  # pyright: ignore[reportImplicitRelativeImport]
-from pathlib import Path
 
 
 def main():
@@ -152,19 +151,19 @@ def main():
     #      manually (re)make the /opt directory (replacing the existing one which is just a symlink
     #      to /var/opt)
     #
-    path = Path("/opt")
-    setup.core.assert_condition(
-        path.is_symlink(), failure_message=f"Failed to apply /opt patch: {path} is not a symlink."
-    )
-    path.unlink()
-    path.mkdir()
-    setup.core.vprint("# Applied /opt patch.")
+    # path = Path("/opt")
+    # setup.core.assert_condition(
+    #     path.is_symlink(), failure_message=f"Failed to apply /opt patch: {path} is not a symlink."
+    # )
+    # path.unlink()
+    # path.mkdir()
+    # setup.core.vprint("# Applied /opt patch.")
 
-    with setup.repos.ctx_copr("sneexy", "zen-browser"):
-        setup.pkgs.install(
-            "zen-browser",
-            "helium-browser-bin",
-        )
+    # with setup.repos.ctx_copr("sneexy", "zen-browser"):
+    setup.pkgs.install(
+        # "zen-browser",
+        "helium-browser-bin",
+    )
 
     # Install: Tailscale
     #
