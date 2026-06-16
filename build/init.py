@@ -69,6 +69,7 @@ def main():
             # "okular",
             "plasma-browser-integration",
             "plasma6-applets-kara",
+            "yakuake",
         )
 
     # region .disabled-01
@@ -98,7 +99,7 @@ def main():
         "fastfetch",
         "fd",
         "fish",
-        "ghostty",
+        # "ghostty",
         "helix",
         "just",
         "lm_sensors",
@@ -115,7 +116,7 @@ def main():
 
     # Install: Nix
     #
-    # setup.pkgs.install("nix-core")
+    setup.pkgs.install("nix-core")
 
     # Install: virtualisation stack (libvirt/QEMU/KVM)
     #
@@ -136,8 +137,7 @@ def main():
     with setup.repos.ctx_obs_repo("home:mkittler"):
         setup.pkgs.install(
             "syncthing",
-            "syncthingplasmoid-qt6",
-            "syncthingfileitemaction-qt6",
+            "syncthingtray-qt6",
             "syncthingctl-qt6",
         )
 
@@ -167,8 +167,7 @@ def main():
 
     # Install: Tailscale
     #
-    with setup.repos.ctx_url_repo("tailscale", "https://pkgs.tailscale.com/stable/fedora"):
-        setup.pkgs.install("tailscale")
+    setup.pkgs.install("tailscale")
 
     # Finalisation
     #
