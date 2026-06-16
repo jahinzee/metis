@@ -85,12 +85,46 @@ systemctl enable "syncthing@$(whoami).service" --now
 
 Alternatively, create an Autostart entry in System Settings.
 
+### Nix
+
+The Nix package manager is available, but requires some additional setup.
+
+The `/nix` directory that the `nix` package installs is not writeable, but it can
+be redirected to a writeable directory with a simple bind mount.
+
+```sh
+sudo cat << EOF > /etc/systemd/system/nix.mount
+[Unit]
+Description=Bind mount /var/nix to /nix for atomic system compatibility.
+
+[Mount]
+What=/var/nix
+Where=/nix
+Type=none
+Options=bind
+
+[Install]
+WantedBy=local-fs.target
+EOF
+
+sudo systemctl enable --now nix.mount
+```
+
+Afterwards, enable the Nix daemon.
+
+```sh
+sudo systemctl enable --now nix-daemon
+```
+
+See Fedora's [`nix` package README][nix-readme] for more information.
+
+[nix-readme]: https://src.fedoraproject.org/rpms/nix/blob/rawhide/f/README.md
 
 ### Unibuild
 
 [Unibuild] is a Python script I wrote for abstracting away complex build steps and package
 installations. I may get around to polishing it to the point of ship-ready, but for now it's only
-intended for this script.
+intended for this image.
 
 You're more than welcome to use it for your own image builds if you want, but don't expect any
 support or interface stability. **User beware!**

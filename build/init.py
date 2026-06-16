@@ -116,7 +116,7 @@ def main():
 
     # Install: Nix
     #
-    setup.pkgs.install("nix-core")
+    setup.pkgs.install("nix")
 
     # Install: virtualisation stack (libvirt/QEMU/KVM)
     #
