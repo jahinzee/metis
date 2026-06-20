@@ -36,19 +36,12 @@ def main():
     setup.repos.enable_url_repo("terra", "https://github.com/terrapkg/subatomic-repos/raw/main")
     setup.pkgs.install("terra-release")
 
-    with (
-        setup.repos.ctx_copr("matinlotfali", "KDE-Rounded-Corners"),
-        setup.repos.ctx_copr("deltacopy", "plasma6-applets-kara"),
-        setup.repos.ctx_copr("badshah", "openbangla-keyboard"),
-        setup.repos.ctx_obs_repo("home:mkittler"),
-    ):
+    with setup.repos.ctx_copr("badshah", "openbangla-keyboard"):
         setup.pkgs.install(
         
-            # Install: desktop apps and tweaks
+            # Install: desktop apps
             #
             "helium-browser-bin",
-            "kwin-effect-roundcorners",
-            "plasma6-applets-kara",
             "yakuake",
         
             # Install: command-line and core applications, Nix, and virtualisation stack
@@ -67,14 +60,12 @@ def main():
             #
             "fcitx5",
             "fcitx5-mozc",
-            "kcm-fcitx5",
             "fcitx5-openbangla",
+            "kcm-fcitx5",
 
-            # Install: Syncthing and SyncthingTray (Plasmoid/KIO/CLI)
+            # Install: Syncthing
             #
             "syncthing",
-            "syncthingtray-qt6",
-            "syncthingctl-qt6",
 
             # Install: printer drivers (brlaser)
             #  
