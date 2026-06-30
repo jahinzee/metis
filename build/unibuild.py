@@ -439,7 +439,6 @@ class _Repositories:
         """
         _ = self._core.run("dnf5", "copr", "disable", "-y", f"{author}/{repo}")
 
-    # JUSTIFY:
     def ctx_copr(self, author: str, repo: str) -> _ContextManager:
         """
         Context manager: enables a COPR on creation, and disables it on exit.
@@ -531,11 +530,27 @@ class _Repositories:
         )
 
 
+class _Systemd:
+    """Functions for managing systemd units."""
+
+    def __init__(self, core: _Core) -> None:
+        self._core = core
+
+    def enable_unit(self, unit: str) -> None:
+        """
+        Enable a systemd unit.
+
+        Args:
+            unit (str): The name of the unit.
+        """
+        self._core.run("systemctl", "enable", unit)
+
+
 @final
 class Setup:
     """Tools to setup a Universal Blue image."""
 
-    __slots__ = ("_verbose", "_core", "_identity", "_packages", "_repositories")
+    __slots__ = ("_verbose", "_core", "_identity", "_packages", "_repositories", "_systemd")
 
     def __init__(self, verbose: bool = False) -> None:
         """
@@ -551,6 +566,7 @@ class Setup:
         self._identity = _Identity(core=self._core)
         self._packages = _Packages(core=self._core)
         self._repositories = _Repositories(core=self._core)
+        self._systemd = _Systemd(core=self._core)
 
     @property
     def core(self) -> _Core:
@@ -576,3 +592,8 @@ class Setup:
     def verbose(self) -> bool:
         """Whether or not the Setup object with initialised with `verbose=True`."""
         return self._verbose
+
+    @property
+    def systemd(self) -> _Systemd:
+        """Functions for managing systemd units."""
+        return self._systemd
