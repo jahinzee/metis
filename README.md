@@ -60,14 +60,6 @@ install" method.
 
 ## Post-Install Notes
 
-### Default shell
-
-You can switch your default shell to `fish` with `usermod` (`chsh` is not available):
-
-```sh
-sudo usermod --shell /bin/fish "$(whoami)"
-```
-
 ### IME setup
 
 For proper IME support, open the *Virtual Keyboard* page in System Settings, and select and
@@ -84,41 +76,6 @@ systemctl enable "syncthing@$(whoami).service" --now
 ```
 
 Alternatively, create an Autostart entry in System Settings.
-
-### Nix
-
-The Nix package manager is available, but requires some additional setup.
-
-The `/nix` directory that the `nix` package installs is not writeable, but it can
-be redirected to a writeable directory with a simple bind mount.
-
-```sh
-sudo cat << EOF > /etc/systemd/system/nix.mount
-[Unit]
-Description=Bind mount /var/nix to /nix for atomic system compatibility.
-
-[Mount]
-What=/var/nix
-Where=/nix
-Type=none
-Options=bind
-
-[Install]
-WantedBy=local-fs.target
-EOF
-
-sudo systemctl enable --now nix.mount
-```
-
-Afterwards, enable the Nix daemon.
-
-```sh
-sudo systemctl enable --now nix-daemon
-```
-
-See Fedora's [`nix` package README][nix-readme] for more information.
-
-[nix-readme]: https://src.fedoraproject.org/rpms/nix/blob/rawhide/f/README.md
 
 ### Unibuild
 

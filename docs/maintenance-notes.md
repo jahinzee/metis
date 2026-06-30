@@ -12,27 +12,12 @@ a build error, check here first for potential points of failure.
 
 ### External repositories
 
-* **Terra**:
-  <https://terrapkg.com/>
-
-  - *Latest package versions (as of 2026-04-25)*: **44**
-
-* **matinotfali/KDE-Rounded-Corners** (COPR):
-  <https://copr.fedorainfracloud.org/coprs/matinlotfali/KDE-Rounded-Corners>
-
-  - *Latest package versions (as of 2026-04-25)*: **44**
-
-* **deltacopy/plasma6-applets-kara** (COPR):
-  <https://copr.fedorainfracloud.org/coprs/deltacopy/plasma6-applets-kara>
-
-  - *Latest package versions (as of 2026-04-25)*: **44**
-
 * **badshah/openbangla-keyboard** (COPR):
   <https://copr.fedorainfracloud.org/coprs/badshah/openbangla-keyboard>
 
-  - *Latest package versions (as of 2026-04-25)*: **44**
+  - *Latest package versions (as of 2026-06-30)*: **44**
 
-* **home:mkittler** (OBS):
-  <https://build.opensuse.org/project/show/home:mkittler>
+* **imput/helium** (COPR):
+  <https://copr.fedorainfracloud.org/coprs/imput/helium/>
 
-  - *Latest package versions (as of 2026-05-04)*: **44**
+  - *Latest package versions (as of 2026-06-30)*: **44**
