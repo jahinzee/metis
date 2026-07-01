@@ -60,10 +60,11 @@ class _ContextManager:
 class _Core:
     """Core common functions for submodules and setup code."""
 
-    __slots__ = ("_verbose",)
+    __slots__ = ("_verbose", "_dry_run")
 
-    def __init__(self, verbose: bool) -> None:
+    def __init__(self, *, verbose: bool = True, dry_run: bool = True) -> None:
         self._verbose = verbose
+        self._dry_run = dry_run
 
     def fatal_error(self, summary: str, details: str = "", exit_code: int = -1) -> Never:
         """
@@ -92,6 +93,9 @@ class _Core:
             `expr` (`bool`): The expression to check.
             `failure_message` (`str`): The message to display if the assertion fails.
         """
+        if self._dry_run:
+            self.vprint(f"#? Assertion: {expr}, {failure_message}")
+            return
         if not expr:
             self.fatal_error(f"Assertion failed: {failure_message}")
 
@@ -120,7 +124,7 @@ class _Core:
             return
         print(*args, file=file, end=end)
 
-    def vcat(self, file_path: str) -> None:
+    def vcat(self, file_path: str | Path) -> None:
         """
         Prints a confirmation of a file change, and the contents of the file if in Verbose mode.
 
@@ -130,6 +134,9 @@ class _Core:
         self.vprint(f"# Updated `{file_path}`.", end="")
         if not self._verbose:
             self.vprint(" Enable Verbose mode to examine file contents.")
+            return
+        if self._dry_run:
+            self.vprint(" file contents cannot be examined in dry run mode.")
             return
         self.vprint()
         with open(file_path) as f:
@@ -153,6 +160,8 @@ class _Core:
             `str | None`: The stdout contents if `capture_stdout` is set, else `None`.
         """
         self.vprint("$", *command)
+        if self._dry_run:
+            return
         stdout = (
             subprocess.PIPE if capture_stdout else None if self._verbose else subprocess.DEVNULL
         )
@@ -171,15 +180,18 @@ class _Core:
         """
         Commits the ostree container, and runs `bootc container lint`.
         """
+        if self._dry_run:
+            return
         _ = self.run("ostree", "container", "commit")
         _ = self.run("bootc", "container", "lint")
 
     def unsymlink_directory(self, path: str | Path) -> None:
+        if self._dry_run:
+            return
         path = Path(path)
         self.assert_condition(path.is_symlink(), f"{path} is not a symlink.")
         path.unlink()
         path.mkdir()
-
         self.assert_condition(not path.is_symlink(), f"Failed to unsymlink {path}.")
 
     @property
@@ -216,6 +228,9 @@ class _Identity:
                 The properties to set or update. By convention, the keys should be in `SHOUTY_CASE`.
                 `None` values will be skipped.
         """
+        if self._core._dry_run:
+            self._core.vprint("#? Skipping os-release update on dry run mode.")
+            return
         properties = {k: v for k, v in properties.items() if v is not None}
         os_release = platform.freedesktop_os_release() | properties
         with open("/usr/lib/os-release", "w+") as f:
@@ -234,6 +249,9 @@ class _Identity:
                 The properties to set. By convention, the keys should be in `kebab-case`.
                 `None` values will be skipped.
         """
+        if self._core._dry_run:
+            self._core.vprint("#? Skipping image-info.json update on dry run mode.")
+            return
         properties = {k: v for k, v in properties.items() if v is not None}
         with open("/usr/share/ublue-os/image-info.json", "w+") as f:
             json.dump(properties, f, indent=4)
@@ -353,6 +371,9 @@ class _Identity:
             CPE_NAME=f"cpe:/o:{image_vendor}:{image_pretty_name}",
             DEFAULT_HOSTNAME=default_hostname,
         )
+        if self._core._dry_run:
+            self._core.vprint("#? Skipping further identity patching in dry run mode")
+            return
         # Fix issues caused by ID no longer being fedora.
         #
         _ = self._core.run(
@@ -545,14 +566,69 @@ class _Systemd:
         """
         self._core.run("systemctl", "enable", unit)
 
+    def make_unit(
+        self,
+        unit_name: str,
+        properties: dict[str, dict[str, str]],
+        *,
+        unit_dir: str | Path | None = None,
+        enable: bool = False,
+    ) -> None:
+        """
+        Make a systemd system unit file with the given `properties`.
+
+        Args:
+            unit_name (str):
+                The name of the unit. Include any required extensions
+                (e.g. `.service`, `.mount`, etc.)
+            properties (dict[str, dict[str, str]]):
+                The properties the unit file will have -- section headers and bodies, each body with
+                keys and values.
+                **NOTE**: No escaping is done to the property values. Please ensure that your
+                          properties values do not result in an invalid file. Use verbose output
+                          and dry runs to verify results.
+            unit_dir (str | Path | None, optional):
+                The directory to make the unit file in. Defaults to `/usr/lib/systemd/system`.
+            enable (bool, optional):
+                Enable the unit after creation. Defaults to False.
+        """
+
+        if unit_dir is None:
+            unit_dir = Path("/usr/lib/systemd/system")
+
+        unit = "\n\n".join(
+            f"[{header}]\n{'\n'.join(f'{key}={val}' for key, val in props.items())}"
+            for header, props in properties.items()
+        )
+
+        target_path = unit_dir / Path(unit_name)
+        if self._core._dry_run:
+            self._core.vprint(f"#? Making unit file '{target_path}':")
+            for line in unit.split("\n"):
+                self._core.vprint(f"#?> {line}")
+            return
+        with open(target_path, "w") as f:
+            f.write(unit)
+        self._core.vcat(target_path)
+        if enable:
+            self.enable_unit(unit_name)
+
 
 @final
 class Setup:
     """Tools to setup a Universal Blue image."""
 
-    __slots__ = ("_verbose", "_core", "_identity", "_packages", "_repositories", "_systemd")
+    __slots__ = (
+        "_verbose",
+        "_dry_run",
+        "_core",
+        "_identity",
+        "_packages",
+        "_repositories",
+        "_systemd",
+    )
 
-    def __init__(self, verbose: bool = False) -> None:
+    def __init__(self, *, verbose: bool = False, dry_run: bool = False) -> None:
         """
         Tools to setup an immutable image.
 
@@ -560,9 +636,13 @@ class Setup:
             `verbose` (`bool`, optional):
                 Verbose mode -- prints additional debug information and subcommand output to the
                 console for debugging. Defaults to `False`.
+            `dry_run` (`bool`, optional):
+                Dry run -- do not make any stateful changes, and skip assertions.
+                Defaults to `False`.
         """
         self._verbose = verbose
-        self._core = _Core(verbose=verbose)
+        self._dry_run = dry_run
+        self._core = _Core(verbose=verbose, dry_run=dry_run)
         self._identity = _Identity(core=self._core)
         self._packages = _Packages(core=self._core)
         self._repositories = _Repositories(core=self._core)
@@ -589,11 +669,16 @@ class Setup:
         return self._repositories
 
     @property
+    def systemd(self) -> _Systemd:
+        """Functions for managing systemd units."""
+        return self._systemd
+
+    @property
     def verbose(self) -> bool:
         """Whether or not the Setup object with initialised with `verbose=True`."""
         return self._verbose
 
     @property
-    def systemd(self) -> _Systemd:
-        """Functions for managing systemd units."""
-        return self._systemd
+    def dry_run(self) -> bool:
+        """Whether or not the Setup object with initialised with `dry_run=True`."""
+        return self._dry_run

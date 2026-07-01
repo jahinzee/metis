@@ -1,14 +1,13 @@
 #!/bin/env python
-from pathlib import Path
-
 from unibuild import Setup
 
 
 def main():
-    setup = Setup(verbose=True)
+    setup = Setup(verbose=True, dry_run=False)
 
     setup.core.vprint("# --**## Metis ##**-- ")
     setup.core.vprint(f"# INFO: Verbose mode is {'on' if setup.verbose else 'off'}.")
+    setup.core.vprint(f"# INFO: Dry run is {'on' if setup.dry_run else 'off'}.")
     setup.core.vprint(f"# INFO: Image based on: Fedora {setup.identity.fedora_release()}.")
 
     # BRANDING: set basic branding and swap logos.
@@ -22,54 +21,42 @@ def main():
         base_image_url="ghcr.io/ublue-os/kinoite-main")  # fmt: skip
     setup.pkgs.swap("fedora-logos", "generic-logos")
 
-    # PATCH: Fix /opt for Helium browser
-    #
-    Path("/opt").unlink()
-    Path("/opt").mkdir()
-    setup.core.assert_condition(Path("/opt").is_dir(), "/opt patch failed.")
-    setup.core.vprint("# /opt patch successful.")
-
     # INSTALL: Base packages
     #
-    setup.repos.enable_copr("badshah", "openbangla-keyboard")
-    setup.repos.enable_copr("imput", "helium")
-    setup.pkgs.install(
-        "@development-tools",
-        "@virtualization",
-        "distrobox",
-        "fcitx-openbangla",
-        "fcitx5-mozc",
-        "fcitx5",
-        "helium-bin",
-        "nix",
-        "pipx",
-        "podman-compose",
-        "podman-docker",
-        "podman",
-        "syncthing",
-        "tailscale",
-        "yakuake")  # fmt: skip
-    setup.repos.disable_copr("badshah", "openbangla-keyboard")
-    setup.repos.disable_copr("imput", "helium")
+    setup.core.unsymlink_directory("/opt")  # PATCH: Fix /opt for Helium browser
+    with (setup.repos.ctx_copr("badshah", "openbangla-keyboard"),
+          setup.repos.ctx_copr("imput", "helium")):  # fmt: skip
+        setup.pkgs.install(
+            "@development-tools",
+            "@virtualization",
+            "distrobox",
+            "fcitx-openbangla",
+            "fcitx5-mozc",
+            "fcitx5",
+            "helium-bin",
+            "nix",
+            "nix-daemon",
+            "pipx",
+            "podman-compose",
+            "podman-docker",
+            "podman",
+            "syncthing",
+            "tailscale",
+            "yakuake")  # fmt: skip
 
     # INSTALL: Base services
     #
-    with open("/usr/lib/systemd/system/nix.mount", "w") as f:
-        f.writelines((
-            "[Unit]\n",
-            "Description=Bind mount /var/nix to /nix for atomic system compatibility.\n",
-            "\n",
-            "[Mount]\n",
-            "What=/var/nix\n",
-            "Where=/nix\n",
-            "Type=none\n",
-            "Options=bind\n",
-            "\n",
-            "[Install]\n",
-            "WantedBy=local-fs.target"))  # fmt: skip
-    setup.core.vprint("# Created systemd service for /nix mount.")
-    setup.core.vcat("/usr/lib/systemd/system/nix.mount")
-    setup.systemd.enable_unit("nix.mount")
+    setup.systemd.make_unit("nix.mount", {
+        "Unit": {
+            "Description": "Bind mount /var/nix to /nix for atomic system compatibility."},
+        "Mount": {
+            "What": "/var/nix",
+            "Where": "/nix",
+            "Type": "none",
+            "Options": "bind"},
+        "Install": {
+            "WantedBy": "local-fs.target"}},
+            enable=True)  # fmt: skip
     setup.systemd.enable_unit("nix-daemon.service")
     setup.systemd.enable_unit("tailscaled.service")
 
