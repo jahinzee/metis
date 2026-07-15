@@ -25,7 +25,8 @@ def main():
     #
     setup.core.unsymlink_directory("/opt")  # PATCH: Fix /opt for Helium browser
     with (setup.repos.ctx_copr("badshah", "openbangla-keyboard"),
-          setup.repos.ctx_copr("imput", "helium")):  # fmt: skip
+          setup.repos.ctx_copr("imput", "helium"),
+          setup.repos.ctx_copr("scottames", "ghostty")):  # fmt: skip
         setup.pkgs.install(
             "@development-tools",
             "@virtualization",
@@ -33,6 +34,7 @@ def main():
             "fcitx-openbangla",
             "fcitx5-mozc",
             "fcitx5",
+            "ghostty",
             "helium-bin",
             "nix",
             "nix-daemon",
