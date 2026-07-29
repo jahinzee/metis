@@ -58,7 +58,7 @@ def main():
             "Options": "bind"},
         "Install": {
             "WantedBy": "local-fs.target"}},
-            enable=True)  # fmt: skip
+        enable=True)  # fmt: skip
     setup.systemd.enable_unit("nix-daemon.service")
     setup.systemd.enable_unit("tailscaled.service")
 

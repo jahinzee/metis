@@ -79,11 +79,10 @@ Alternatively, create an Autostart entry in System Settings.
 
 ### Unibuild
 
-[Unibuild] is a Python script I wrote for abstracting away complex build steps and package
-installations. I may get around to polishing it to the point of ship-ready, but for now it's only
-intended for this image.
+[Unibuild] is a Python script I originally wrote for abstracting away complex build steps and
+package installations.
 
-You're more than welcome to use it for your own image builds if you want, but don't expect any
-support or interface stability. **User beware!**
+I no longer use it (switched to plain shell scripts), but you're more than welcome to use it for
+your own image builds if you want. Don't expect any support, though; **user beware!**
 
-[Unibuild]: /build/unibuild.py
+[Unibuild]: /old/unibuild.py
