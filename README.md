@@ -9,10 +9,9 @@ An atomic distro for an audience of one (me).
 ## Further links
 
 - The [maintenance notes] – check here first in case something goes wrong.
-- Information regarding [Unibuild](#unibuild).
 - The original [image-template README] for reference.
 
-[image-template README]: /docs/old-readme.md
+[image-template README]: /old/old-readme.md
 [maintenance notes]: /docs/maintenance-notes.md
 
 ## Usage
@@ -59,23 +58,6 @@ install" method.
 5. Reboot once again.
 
 ## Post-Install Notes
-
-### IME setup
-
-For proper IME support, open the *Virtual Keyboard* page in System Settings, and select and
-apply *Fcitx 5 Wayland Launcher (Experimental)*.
-  
-Afterwards, log out and log in again to activate the IME.
-
-### Syncthing
-
-Enable the Syncthing service for your current user with:
-
-```sh
-systemctl enable "syncthing@$(whoami).service" --now
-```
-
-Alternatively, create an Autostart entry in System Settings.
 
 ### Unibuild
 

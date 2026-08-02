@@ -12,22 +12,7 @@ a build error, check here first for potential points of failure.
 
 ### External repositories
 
-* **badshah/openbangla-keyboard** (COPR):
-  <https://copr.fedorainfracloud.org/coprs/badshah/openbangla-keyboard>
-
-  - *Latest package versions (as of 2026-07-29)*: **44**
-
 * **imput/helium** (COPR):
   <https://copr.fedorainfracloud.org/coprs/imput/helium>
-
-  - *Latest package versions (as of 2026-07-29)*: **44**
-
-* **scottames/ghostty** (COPR):
-  <https://copr.fedorainfracloud.org/coprs/scottames/ghostty>
-
-  - *Latest package versions (as of 2026-07-29)*: **44**
-
-* **skaldebane/libfprint-elanmoc2** (COPR):
-  <https://copr.fedorainfracloud.org/coprs/skaldebane/libfprint-elanmoc2>
 
   - *Latest package versions (as of 2026-07-29)*: **44**
