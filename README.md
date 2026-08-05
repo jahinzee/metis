@@ -1,3 +1,10 @@
+
+# DEPRECATED
+
+This project is superseded by [kinoite-nix](https://github.com/jahinzee/kinoite-nix).
+
+---
+
 # metis
 
 An atomic distro for an audience of one (me).
